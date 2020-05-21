@@ -1,8 +1,9 @@
 package repository
 import (
 	entity "../entity"
-	"cloud.google.com/go/firestore"
 	"context"
+	firebase "firebase.google.com/go"
+	"google.golang.org/api/option"
 	"log"
 )
 
@@ -25,7 +26,9 @@ const (
 
 func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId)
+	sa := option.WithCredentialsFile("C:\\Users\\wacalvo\\Desktop\\Firebase Go\\credenciales.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	client, err := app.Firestore(ctx)
 	if err != nil {
 		log.Fatalf("Fail to create a FireStone Client: %v", err)
 		return nil, err
@@ -45,7 +48,13 @@ func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 }
 func (*repo) FindAll() ([]entity.Post, error){
 	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, projectId)
+	sa := option.WithCredentialsFile("C:\\Users\\wacalvo\\Desktop\\Firebase Go\\credenciales.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalf("Fail to create a FireStone Client: %v", err)
+		return nil, err
+	}
 	if err != nil {
 		log.Fatalf("Fail to create a FireStone Client: %v", err)
 		return nil, err

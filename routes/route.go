@@ -24,8 +24,9 @@ func GetPost(res http.ResponseWriter, req *http.Request){
 }
 func AddPost(res http.ResponseWriter, req *http.Request){
 	res.Header().Set("Content-Type", "application/json")
+	decoder := json.NewDecoder(req.Body)
 	var post entity.Post
-	err := json.NewEncoder(res).Encode(&post)
+	err := decoder.Decode(&post)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
 		res.Write([]byte(`{"error":"Error parsing data"}`))
