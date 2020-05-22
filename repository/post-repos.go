@@ -3,6 +3,7 @@ import (
 	entity "../entity"
 	"context"
 	firebase "firebase.google.com/go"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"log"
 )
@@ -60,10 +61,13 @@ func (*repo) FindAll() ([]entity.Post, error){
 		return nil, err
 	}
 	defer client.Close()
-	iterator := client.Collection(collectionName).Documents(ctx)
+	iter := client.Collection(collectionName).Documents(ctx)
 	var posts []entity.Post
 	for  {
-		doc, err := iterator.Next()
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
 		if err !=  nil{
 			log.Fatalf("Fail to iterate list of post: %v", err)
 			return nil, err
