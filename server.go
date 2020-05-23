@@ -1,22 +1,23 @@
 package main
 
 import (
-	routes "./routes"
+	routes "./controller"
+	"./http"
 	"fmt"
-	"github.com/gorilla/mux"
-	"log"
 	"net/http"
 )
 
+var (
+	httpRouter  = router.NewMuxRouter()
+)
+
 func main()  {
-	router := mux.NewRouter()
 	const port string = ":8080"
-	router.HandleFunc("/", func(res http.ResponseWriter, req *http.Request){
-		fmt.Fprintln(res, "Running")
+	httpRouter.GET("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "Running on port" + port)
 	})
-	router.HandleFunc("/posts", routes.GetPost).Methods("GET")
-	router.HandleFunc("/posts", routes.AddPost).Methods("POST")
-	log.Println("Server on port", port)
-	log.Fatalln(http.ListenAndServe(port, router))
+	httpRouter.GET("/posts", routes.GetPost)
+	httpRouter.POST("/posts", routes.AddPost)
+	httpRouter.SERVE(port)
 }
 
