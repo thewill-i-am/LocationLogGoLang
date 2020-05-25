@@ -2,6 +2,7 @@ package repository
 
 import (
 	entity "../entity"
+	enviroment "../enviroment"
 	"context"
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/iterator"
@@ -21,7 +22,7 @@ const (
 
 func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("C:\\Users\\wacalvo\\Desktop\\Firebase Go\\credenciales.json")
+	sa := option.WithCredentialsFile(enviroment.GoDotEnvVariable("credentials"))
 	app, err := firebase.NewApp(ctx, nil, sa)
 	client, err := app.Firestore(ctx)
 	if err != nil {
@@ -44,7 +45,7 @@ func (*repo) Save(post *entity.Post) (*entity.Post, error) {
 
 func (*repo) FindAll() ([]entity.Post, error){
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("C:\\Users\\wacalvo\\Desktop\\Firebase Go\\credenciales.json")
+	sa := option.WithCredentialsFile(enviroment.GoDotEnvVariable("credentials"))
 	app, err := firebase.NewApp(ctx, nil, sa)
 	client, err := app.Firestore(ctx)
 	if err != nil {

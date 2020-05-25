@@ -19,7 +19,8 @@ var (
 	repo = repository.NewFireStoreRepository()
 )
 
-func NewPostService() PostService {
+func NewPostService(repository repository.PostRepository) PostService {
+	repo = repository
 	return &service{}
 }
 
