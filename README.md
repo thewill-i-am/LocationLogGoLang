@@ -9,9 +9,9 @@ For run what you need to do is the following steps:
 
 --Generate a credential files when you have the credentials put the .json file in the root of this directory
 
+-- Also create a .env with an environment variable called credentials and you need to assign the path of the credentials like that :
+credentials = PATH
 
-
-
-#Go build serve.go
-#Go run serve.go
+# Go build serve.go
+# Go run serve.go
 
