@@ -1,17 +1,1 @@
-# Go-FireBase
-
-Implementation of FireBase with programming language Golang
-This code is under clean architecture
-
-For run what you need to do is the following steps:
-
---You need to create a firebase account and use the firestore service
-
---Generate a credential files when you have the credentials put the .json file in the root of this directory
-
--- Also create a .env with an environment variable called credentials and you need to assign the path of the credentials like that :
-credentials = PATH
-
-# Go build serve.go
-# Go run serve.go
-
+This repository contains a backend project written in Golang that performs operations on a database and Firebase. The project is responsible for real-time logging of the location of students. The backend interacts with the database to store and retrieve location data and uses Firebase for authentication and real-time updates. The codebase is written in Golang, and follows a clean architecture design pattern. This repository is intended to serve as a reference point for anyone looking to build a backend in Golang, and also as a proof of concept for real-time location logging using Firebase.
